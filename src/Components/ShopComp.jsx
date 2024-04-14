@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { React, react } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { add } from "../features/CartSlice";
+import { getProducts } from "../features/ShopSlice";
 
 export default function ShopComp() {
-  const [apiData, setApiData] = useState([]);
   const dispatch = useDispatch();
   const cartitem = useSelector((state) => state.cart);
+  const { data: apiData } = useSelector((state) => state.shop);
 
-  useEffect(() => {
-    axios
-      .get("https://fakestoreapi.com/products")
-      .then((res) => setApiData(res.data))
-      .catch((err) => console.log(err));
+  react.useEffect(() => {
+    dispatch(getProducts());
   }, []);
 
   const addToCart = (data) => {
@@ -38,9 +35,6 @@ export default function ShopComp() {
 
           <Card.Body>
             <Card.Title>{data.title}</Card.Title>
-            {/* <Card.Text>
-              {data.description}
-            </Card.Text> */}
             <Card.Text>INR : {data.price}</Card.Text>
           </Card.Body>
           <Card.Footer style={{ background: "white" }}>
