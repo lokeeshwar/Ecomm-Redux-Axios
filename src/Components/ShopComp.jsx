@@ -1,18 +1,31 @@
-import { React, react } from "react";
+import { React, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { add } from "../features/CartSlice";
 import { getProducts } from "../features/ShopSlice";
+import Alert from "react-bootstrap/Alert";
 
 export default function ShopComp() {
   const dispatch = useDispatch();
   const cartitem = useSelector((state) => state.cart);
-  const { data: apiData } = useSelector((state) => state.shop);
+  const { data: apiData, status } = useSelector((state) => state.shop);
 
-  react.useEffect(() => {
+  useEffect(() => {
     dispatch(getProducts());
   }, []);
+
+  if (status === "loading") {
+    return <h3>loading......</h3>;
+  }
+
+  if (status === "error") {
+    return (
+      <Alert key="danger" variant="danger">
+        Something went wrong!!! Try Again Later
+      </Alert>
+    );
+  }
 
   const addToCart = (data) => {
     const isProductInCart = cartitem.find((item) => item.id === data.id);
@@ -28,7 +41,7 @@ export default function ShopComp() {
           <div className="text-center">
             <Card.Img
               variant="top"
-              src={data.image}
+              src={data.images[0]}
               style={{ width: "100px", height: "130px", marginTop: "10px" }}
             />
           </div>
@@ -50,8 +63,6 @@ export default function ShopComp() {
   return (
     <div>
       <h1> ShopComp </h1>
-
-      {/* {JSON.stringify(apiData)} */}
       <div className="row">{products}</div>
     </div>
   );
