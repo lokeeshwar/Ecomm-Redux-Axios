@@ -42,7 +42,7 @@ export default function ShopComp() {
             <Card.Img
               variant="top"
               src={data.images[0]}
-              style={{ width: "100px", height: "130px", marginTop: "10px" }}
+              style={{ width: "150px", height: "150px", marginTop: "10px" }}
             />
           </div>
 

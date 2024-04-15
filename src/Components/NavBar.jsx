@@ -19,13 +19,13 @@ const cartProducts = useSelector ((state) => state.cart)
               All Products
             </Nav.Link>
             <Nav.Link to="/" as={Link}>
-              Men
+              link1
             </Nav.Link>
             <Nav.Link to="/" as={Link}>
-              Women
+              link2
             </Nav.Link>
             <Nav.Link to="/" as={Link}>
-              Kids
+              link3
             </Nav.Link>
           </Nav>
           <Navbar.Collapse className="justify-content-end">
